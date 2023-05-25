@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This script displays all active IPV4
+# on the machine it is executed
+
+nc -4 -l 2385
+netstat | grep 2385
