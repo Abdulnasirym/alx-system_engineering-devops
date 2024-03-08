@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# stopping a process
+
+kill -9
