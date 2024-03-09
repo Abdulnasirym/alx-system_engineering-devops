@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Script that does alot
+
+pid=$$
+
+mkdir -p /var/run
+echo "$pid" > /var/run/myscript.pid
+pid_file=/var/run/myscript.pid
+
+trap 'echo "I hate the kill command"' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+
+while true
+do
+	echo "To infinity and beyond"
+done
+
+cleanup_exit() {
+    rm -f "$pid_file"
+    exit 0
+}
+
+trap 'cleanup_exit' SIGQUIT SIGTERM
