@@ -1,43 +1,8 @@
-#/bin/bash
+#!/usr/bin/env bash
+# installs nginx and configures it on a remote server
 
-# update packages
-sudo apt-get update
-
-# install nginx
-sudo apt-get install nginx
-
-# create a default HTML file with "Hello World!"
-echo "<html>
-<head><title>Hello World!</title></head>
-<body>
-<p>Hello world!</p>
-</body>
-</html>" | sudo tee /var/www/html/index.html > /dev/null
-
-# configure nginx to listen on port 80
-sudo sed -i 's/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
-
-# Remove default server block
-sudo rm -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# creates a new server block configuration for the roor
-echo "server {
-	listen 80 default_server; # for all ipv4 addresses
-	listen[::]:80 default_server; # for all ipv6 addresses
-
-	root /var/www/html; # default directory  where web contents are stored
-	index index.html; # default file to serve
-
-	location / { # defines how to handle request that matches this location '/'
-		try_files \$uri \$uri/ =404;
-	}
-}" | sudo tee /etc/nginx/sites-available/web01 > /dev/null
-
-# creates a symbolic link to enablethe server block
-sudo ln -s /etc/nginx/sites-available/web01 /etc/nginx/sites-enabled/
-
-# Test Nginx configuration
-sudo nginx -t 
-
-# Reload Nginx to apply changes
-sudo nginx -s reload
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+service nginx start
