@@ -11,5 +11,8 @@ sudo ufw allow "Nginx HTTP"
 # Creating an index.html page
 echo "Hello World!" > /var/www/html/index.html
 
-# Starting the server
+# Retarting the server
 sudo service nginx reload
+
+# Starting server
+sudo service nginx start
