@@ -3,16 +3,13 @@
 
 # updating packages
 sudo apt-get update
-sudo apt-get install -y nginx
+sudo apt-get -y install nginx
 
 # Enabling Nginx HTTP
 sudo ufw allow "Nginx HTTP"
 
 # Creating an index.html page
-echo "Hello World!" | sudo tee /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
-#testing configurations
-sudo nginx -t
-
-# Restarting the server
-sudo service nginx reload
+# Starting the server
+sudo service nginx start
