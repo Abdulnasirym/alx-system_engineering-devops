@@ -10,6 +10,4 @@ new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\github.com\/abduln
 
 sudo sed -i "s/server_name _/$new_string" /etc/nginx/sites-enabled/default
 
-sudo service nginx restart
-
 sudo service nginx start
