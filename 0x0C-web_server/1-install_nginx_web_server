@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Installing Nginx on web-01 server
+
+# updating packages
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Enabling Nginx HTTP
+sudo ufw allow  "Nginx HTTP"
+
+# Creating an index.html page
+echo "Hello World!" | sudo tee/var/www/html/index.html
+
+# Restarting the server
+sudo service nginx restart
