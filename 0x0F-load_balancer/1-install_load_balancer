@@ -2,15 +2,15 @@
 # installing and configuring haproxy on lb-01 server
 
 # updating and installing packages
-sudo apt update
+sudo apt -y update
 sudo apt -y install haproxy
 
 # Reload systemd configuration
-sudo systemctl daemon-reload
+#sudo systemctl daemon-reload
 
 # start and enable haproxy
-sudo systemctl start haproxy
-sudo systemctl enable haproxy
+#sudo systemctl start haproxy
+#sudo systemctl enable haproxy
 
 # configuring .cfg file for load balancing web-01 and web-02 servers traffic
 echo -e "frontend http_front\n	bind*:80\n	default_backend http_back\n\nbackend http_back\n	balance roundrobin\n	server 463453-web-01 18.234.192.178:80 check\n	 server 463453-web-02 54.210.195.113:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
