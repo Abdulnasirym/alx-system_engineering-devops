@@ -13,7 +13,20 @@ sudo apt -y install haproxy
 #sudo systemctl enable haproxy
 
 # configuring .cfg file for load balancing web-01 and web-02 servers traffic
-echo -e "frontend http_front\n	bind*:80\n	default_backend http_back\n\nbackend http_back\n	balance roundrobin\n	server 463453-web-01 18.234.192.178:80 check\n	 server 463453-web-02 54.210.195.113:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+#echo -e "frontend http_front\n	bind*:80\n	default_backend http_back\n\nbackend http_back\n	balance roundrobin\n	server 463453-web-01 18.234.192.178:80 check\n	 server 463453-web-02 54.210.195.113:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+server_config=\
+"
+frontend  ehoneah-frontend
+        bind *:80
+        mode http
+        default_backend abdulnasir-backend
+backend abdulnasir-backend
+        balance roundrobin
+        server 463453-web-01 100.25.19.204:80 check
+        server 463453-web-02 54.210.195.133:80 check
+"
+echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
 # Enabling haproxy to be started by init script
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
