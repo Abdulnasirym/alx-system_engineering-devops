@@ -59,3 +59,4 @@ if ! sudo netstat -tuln | grep -q :80; then
 else
         echo "Nginx is already listening on port 80"
 fi
+
