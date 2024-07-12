@@ -2,7 +2,7 @@
 # Automatatically checks if port 80 is listening else it configure it to listen on port 80
 
 # Ensuring NGINX is installed
-sudo systemctl status Nginx > /dev/null 2>&1
+sudo systemctl status nginx > /dev/null 2>&1
 
 # Capture the exit status
 status=$?
@@ -13,7 +13,7 @@ if [ $status -eq 0 ]; then
 elif [ $status -eq 3 ]; then
         echo "Nginx is not running"
         echo "starting Nginx"
-        sudo systemctl start Nginx
+        sudo systemctl start nginx
 elif [ $status -eq 4 ]; then
         echo "Nginx service not found"
         echo "Installing Nginx service..."
@@ -21,20 +21,19 @@ elif [ $status -eq 4 ]; then
         sudo apt-get -y install nginx
         sudo systemctl enable nginx
         sudo ufw allow "Nginx HTTP"
-        sudo systemctl restart Nginx
+        sudo systemctl restart nginx
 else
         echo "Unknown status code: $status"
 fi
 
 # Checks if netstat tool is installed
-if command -v netsat > /dev/null 2>&1; then
+if command -v netstat > /dev/null 2>&1; then
         echo "Netstat already installed"
 else
         echo "Installing Netsat tools..."
-        sudo apt -y update
-        sudo apt -y install net-tools
-        sudo systemctl restart Nginx
-        echo "Netsat successfullyinstalled"
+        sudo apt-get -y update
+        sudo apt-get -y install net-tools
+        echo "Netstat successfully installed"
 fi
 
 # Checks if Nginx is listeing on port 80
@@ -47,13 +46,10 @@ if ! sudo netstat -tuln | grep -q :80; then
         # Ensure firewall allows traffic on port 80
         sudo ufw allow 80/tcp
 
-        # Restart Nginx to apply changes
-        sudo systemctl restart Nginx
-
         # Verify if Nginx is now listening on port 80
         if sudo netsat -tuln | grep -q :80; then
                 echo "Nginx is now listening on port 80."
-        elseOOA
+        else
                 echo "Failed to configure Nginx to listen on port 80"
         fi
 else
