@@ -10,7 +10,7 @@ status=$?
 # Evaluate the exit status
 if [ $status -eq 0 ]; then
         echo "Nginx is running"
-elif [ $staus -eq 3 ]; then
+elif [ $status -eq 3 ]; then
         echo "Nginx is not running"
         echo "starting Nginx"
         sudo systemctl start Nginx
@@ -27,7 +27,7 @@ else
 fi
 
 # Checks if netstat tool is installed
-if which netsat > /dev/null 2>&1; then
+if command -v netsat > /dev/null 2>&1; then
         echo "Netstat already installed"
 else
         echo "Installing Netsat tools..."
