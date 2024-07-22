@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# runs the whoami command under the passed user
+
+if id "$1" &>/dev/null;then
+	sudo userdel -r "$1"
+	sudo useradd -m "$1"
+else
+	sudo useradd -m "$1"
+fi
+su - "$1" -c 'whoami'
