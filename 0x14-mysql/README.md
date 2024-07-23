@@ -1,1 +1,0 @@
-mysql installations and configurations
